@@ -1,14 +1,22 @@
-class Tuple{
-    int expLength;
-    char bracket;
-    
-    Tuple(int x, char c){
-        expLength = x;
-        bracket = c;
-    }
-}
+import java.util.*;
 
-public class Solution {
+public class RedundantBraces {
+    private static class Tuple{
+        int expLength;
+        char bracket;
+
+        Tuple(int x, char c){
+            expLength = x;
+            bracket = c;
+        }
+    }
+
+    public static void main(String[] args) {
+        RedundantBraces braces  = new RedundantBraces();
+//        System.out.println(braces.braces("((a+b))"));
+        System.out.println(braces.braces("((a*b)+(c+d))"));
+    }
+
     public int braces(String str) {
         Stack<Tuple> st = new Stack<>();
         int expLength = 0;
@@ -26,7 +34,8 @@ public class Solution {
             }
             else if(str.charAt(i) == ')'){
                 Tuple t = st.pop();
-                if(t.expLength == 0){
+                t.expLength = expLength;
+                if(t.expLength <=1){
                     return 1;
                 }
                 if(st.size() > 0){
@@ -39,12 +48,10 @@ public class Solution {
             else{
                 expLength++;
             }
-            
+
         }
-        
+
         return 0;
-        
-        
     }
 }
 
